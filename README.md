@@ -14,5 +14,14 @@ This is a demo repository based on [CI Bootstrap 3](https://github.com/waifung02
 
 http://rodrigoespino.000webhostapp.com/total/admin/
 
+###  TECHNOLOGIES:
+PHP > 7.0 (POO)
+FRAMEWORK : CODEIGNITER
+PANEL: ADMIN LTE
+BOOTSTRAP
+JQUERY
+MYSQL 
+
+
  
 BY : RODRIGO ESPINO 
