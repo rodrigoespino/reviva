@@ -31,7 +31,7 @@
 					<?php echo $row->Taxes_imported;?><br>	
 					<input id="taxes_i" name="taxes_i" type="hidden" value="<?php echo $row->Taxes_imported;?>">
        				<?php endforeach;?>
-							
+
 				</div>      		
 		<!--  
 		
@@ -123,15 +123,13 @@
 					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">					<div class="panel-body">Invoice Panel</div>
 					<div class="form-group">
  						<input data-loading-text="Saving Invoice..." type="submit"  name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">						
-						 <input type="button"  style="margin-left: 10px" class="btn btn-danger" value="Go Back (Do not Save!)" onClick='history.go(-1);'>
+						 <input type="button"  style="margin-left: 10px" class="btn btn-danger" value="Go Back (Do not Save!)"  onclick="window.location.href='/total/admin/Billing/Crud/'">
  						<input onclick="print_invoice()"  style="margin-left: 10px" type="" name="printer_btn" value="Print Invoice" class="btn btn-success submit_btn invoice-save-btm">						
 
 					</div>
-				 
-				</div>
+ 				</div>
 						</div>
-
-				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+ 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<span class="form-inline">
 						<div class="form-group">
 							<label>Subtotal: &nbsp;</label>

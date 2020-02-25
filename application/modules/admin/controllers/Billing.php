@@ -91,7 +91,11 @@ class Billing extends Admin_Controller {
             
          
          }
-         
+       //  echo    "Billing Number Generated : " . $id_invoice ;
+         //sleep(2);
+
+         redirect('/admin/Billing/create/', 'location');
+        
         // $this->load->view('adminlte/billing/billing_view');
         }
 
