@@ -1,6 +1,5 @@
  
 
- 
 <title>Demo By: Rodrigo Espino</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -13,6 +12,7 @@
  
 
 <div class="container content-invoice">
+ 
 <form action="<?php echo site_url('admin/Billing/save');?>" method="post" enctype="multipart/form-data">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
@@ -24,11 +24,14 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<h3>From,</h3>
 					<?php foreach($company as $row):?>
-
-					<h1> <?php echo $row->Name;?><br></h1>	
-					<?php echo $row->email;?><br>	
-					<?php echo $row->Address;?><br>	
+						
+					<h1>Name: <?php echo $row->Name;?><br></h1>	
+					Email:  <?php echo $row->email;?><br>	
+					Adress: <?php echo $row->Address;?><br>
+					Phone: <?php echo $row->phone;?><br>	
+						
 					<?php echo $row->Taxes_imported;?><br>	
+					
 					<input id="taxes_i" name="taxes_i" type="hidden" value="<?php echo $row->Taxes_imported;?>">
        				<?php endforeach;?>
 
@@ -114,11 +117,23 @@
 			</div>
 			<div class="row" >	
 				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-					 <div class="form-group" style="display: none">
+ 
+					 <div class="form-group">
 					 <h3>Notes: </h3>
  
 						<textarea class="form-control txt" rows="5" name="notes" id="notes" placeholder="Your Notes"></textarea>
 					</div>
+
+				<div class="form-group">
+				    <label><h3>Payment  :</h3> </label>
+				    <select class="form-control" name="paid" id="paid" required>
+						<option value="">No Select</option>
+ 
+				    	<?php foreach($id_paid as $row):?>
+				    	<option value="<?php echo $row->id_paid;?>"><?php echo $row->description_paid;?></option>
+				    	<?php endforeach;?>
+				    </select>
+				</div>
 					<br>
 					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">					<div class="panel-body">Invoice Panel</div>
 					<div class="form-group">

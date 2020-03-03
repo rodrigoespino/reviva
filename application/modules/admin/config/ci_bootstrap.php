@@ -67,7 +67,7 @@ $config['ci_bootstrap'] = array(
 		'Company' => array(
 			'name'		=> 'Company',
 			'url'		=> 'Company/Crud',
-			'icon'		=> 'fa fa-home',
+			'icon'		=> 'fa fa-university',
 		),
 		'Client' => array(
 			'name'		=> 'Client',
@@ -80,7 +80,7 @@ $config['ci_bootstrap'] = array(
 		'Products' => array(
 			'name'		=> 'Product',
 			'url'		=> 'cover_photo',
-			'icon'		=> 'ion ion-image',	// can use Ionicons instead of FontAwesome
+			'icon'		=> 'fa  fa-product-hunt	',	// can use Ionicons instead of FontAwesome
 			'children'  => array(
 				'Product  Crud'		=> 'Product/crud',
 				'Category Tax Crud'		=> 'Product/taxes_crud',
@@ -93,7 +93,12 @@ $config['ci_bootstrap'] = array(
 		'Billing' => array(
 			'name'		=> 'Billing',
 			'url'		=> 'Billing/Crud',
-			'icon'		=> 'fa fa-home',
+			'icon'		=> 'fa fa-credit-card',
+			'children'  => array(
+				'Invoice  Crud'		=> 'billing/crud',
+
+				'Paid Type'		=> 'billing/billing_type',
+		 	)	
 		),
 	 
 		'panel' => array(
@@ -106,14 +111,7 @@ $config['ci_bootstrap'] = array(
 				'Admin User Groups'		=> 'panel/admin_user_group',
 			)
 		),
-		'util' => array(
-			'name'		=> 'Utilities',
-			'url'		=> 'util',
-			'icon'		=> 'fa fa-cogs',
-			'children'  => array(
-				'Database Versions'		=> 'util/list_db',
-			)
-		),
+ 
 		'logout' => array(
 			'name'		=> 'Sign Out',
 			'url'		=> 'panel/logout',
@@ -151,13 +149,7 @@ $config['ci_bootstrap'] = array(
 
 	// Useful links to display at bottom of sidemenu
 	'useful_links' => array(
-		array(
-			'auth'		=> array('webmaster', 'admin', 'manager', 'staff'),
-			'name'		=> 'Frontend Website',
-			'url'		=> '',
-			'target'	=> '_blank',
-			'color'		=> 'text-aqua'
-		),
+ 
 		array(
 			'auth'		=> array('webmaster', 'admin'),
 			'name'		=> 'API Site',
@@ -165,13 +157,7 @@ $config['ci_bootstrap'] = array(
 			'target'	=> '_blank',
 			'color'		=> 'text-orange'
 		),
-		array(
-			'auth'		=> array('webmaster', 'admin', 'manager', 'staff'),
-			'name'		=> 'Github Repo',
-			'url'		=> CI_BOOTSTRAP_REPO,
-			'target'	=> '_blank',
-			'color'		=> 'text-green'
-		),
+ 
 	),
 
 	// Debug tools

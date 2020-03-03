@@ -22,6 +22,15 @@ class Group_model extends MY_Model {
   
         return $return;
     }
+    public function get_all_paid() {
+        $this->db->select('*');
+        $this->db->from('status_paid');
+         $this->db->order_by("description_paid", "ASC");
+        $Q = $this->db->get();
+        $return = $Q->result();
+  
+        return $return;
+    }
 
 
     public function get_all_products() {

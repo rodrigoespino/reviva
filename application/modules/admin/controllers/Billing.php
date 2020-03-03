@@ -13,14 +13,57 @@ class Billing extends Admin_Controller {
 	// Grocery CRUD - Billing 
 	public function crud()
 	{
+ 
 		$crud = $this->generate_crud('header_billing');
-        $crud->set_relation('id_client', 'client', 'Name');
         $this->mPageTitle = 'Billing Control    ';
-		$this->mViewData['crud_note'] = modules::run('adminlte/widget/btn', 'New Order', 'Billing/create');
+
+        $crud->set_relation('id_client', 'client', 'Name');
+        $crud->set_relation('id_paid', 'status_paid', 'description_paid');
+
+ 		$this->mViewData['crud_note'] = modules::run('adminlte/widget/btn', 'New Order', 'Billing/create');
+		$crud->add_action('', 'Report', 'fa fa-file-pdf-o','fa fa-file-pdf-o',array($this,'report_pdf'));
 
         $crud->unset_add();
         $crud->unset_delete();
         $this->render_crud();
+
+    }
+    function report_pdf($primary_key)
+
+
+	{
+	
+	//	return $this->load->view('informe');
+	$id = $primary_key;	
+	    return site_url('admin/billing/vista/').$id;
+
+
+   // return site_url('admin/clientes/contactos/add/').$id;
+	}
+    function vista($id){
+        $ci =& get_instance();
+        $this->load->view('adminlte/billing/billing_view');
+    
+        echo "jasdasda";
+
+
+        
+     /* $data =1;
+    
+        $this->load->view('adminlte/billing/billing_view', $data);
+    
+        //$this->load->database();
+      //  $query = $this->db->query("SELECT");
+    return $data;
+    */
+    }
+
+    	// Grocery CRUD - Billing  TYPE 
+	public function billing_type()
+	{
+		$crud = $this->generate_crud('status_paid');
+         $this->mPageTitle = 'Status Paid /CRUD    ';
+         $this->render_crud();
 
     }
     public function savehead($client,$total){
@@ -38,7 +81,9 @@ class Billing extends Admin_Controller {
     public function create(){
   
         $this->load->model('Group_model');
+        $data['id_paid'] = $this->Group_model->get_all_paid();
         $data['id_client'] = $this->Group_model->get_all_clients();
+
         $data['company'] = $this->Group_model->get_all_company();
         $data['product'] = $this->Group_model->get_all_products();
 

@@ -21,6 +21,11 @@
 							<div class="pull-left">
 								<a href="panel/account" class="btn btn-default btn-flat">Account</a>
 							</div>
+							<li class="user-footer">
+							<div class="pull-left">
+								<a href="panel/account" class="btn btn-default btn-flat">Account</a>
+							</div>
+							
 							<div class="pull-right">
 								<a href="panel/logout" class="btn btn-default btn-flat">Sign out</a>
 							</div>
