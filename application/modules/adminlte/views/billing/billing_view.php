@@ -180,8 +180,8 @@
                 </td>
             </tr>
                       <?php
- 
-                for($i=0; $i<$total_items; $i++)
+  $i=0;
+                for($ar=0; $ar<$total_items; $ar++)
                 {
                     $i = $i+1;
                     echo "<tr class='item'>";
@@ -190,7 +190,7 @@
                     $qty = strval('$qty_'.$i)   ;     
                     $tax = strval('$tax_'.$i)   ;     
 
-                    echo "<td>";
+                    echo "<td name=".$descri.">";
                      echo eval('echo '. $descri . ';');
 
                      echo "</td>";
@@ -211,7 +211,8 @@
               //      echo $items_price_.$i;
                     echo "</td>";
                     echo "<td>";
-                    echo eval('echo '. intval($qty)*intval($price) . ';');
+                    
+                    echo eval('echo '. gettype( $price ). ';');
 
  
               //      echo $items_price_.$i;

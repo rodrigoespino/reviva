@@ -124,28 +124,29 @@ class Billing extends Admin_Controller {
         }   
 
          $viewdata['total_items'] =  $query_items->num_rows(); 
-$i = 0;
-        foreach ($query_items->result_array() as $rowitems)
-        {
+           $i = 0;
+        foreach ($query_items->result() as $rowitems)
+        
+       {
  
 
              $i = $i+1;
+             /*
              $viewdata['descripcion_'.$i] = $rowitems['description'];  
              $viewdata['items_price_'.$i] = $rowitems['price'];
              $viewdata['qty_'.$i] = $rowitems['qty'];
              $viewdata['tax_'.$i] = $rowitems['tax_price'];
 
+        */
+        $viewdata['descripcion_'.$i] = $rowitems->description;  
+        $viewdata['items_price_'.$i] = $rowitems->price;
+        $viewdata['qty_'.$i] = $rowitems->qty;
+        $viewdata['tax_'.$i] = $rowitems->tax_price;
 
           }   
  
-
         $this->load->view('adminlte/billing/billing_view',$viewdata);
-    /*
-        Select *, DATE_FORMAT(date_billing,'%d/%m/%Y') AS niceDate from header_billing
-        inner join client
-        on client.id_client = header_billing.id_client 
-    */
-
+ 
 
 
     }
@@ -234,12 +235,10 @@ $i = 0;
             
          
          }
-       //  echo    "Billing Number Generated : " . $id_invoice ;
-         //sleep(2);
+       
 
-         redirect('/admin/Billing/create/', 'location');
-        
-        // $this->load->view('adminlte/billing/billing_view');
+          redirect('/admin/Billing/vista/'.$id_invoice, 'location');
+   
         }
 
  

@@ -9,8 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<? echo base_url('assets/css/style.css');?>" />
 
 <script type='text/javascript' src="<?php echo base_url('assets/'); ?>js/invoice.js"></script>
- 
-
+  
 <div class="container content-invoice">
  
 <form action="<?php echo site_url('admin/Billing/save');?>" method="post" enctype="multipart/form-data">
@@ -139,8 +138,7 @@
 					<div class="form-group">
  						<input data-loading-text="Saving Invoice..." type="submit"  name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">						
 						 <input type="button"  style="margin-left: 10px" class="btn btn-danger" value="Go Back (Do not Save!)"  onclick="window.location.href='/total/admin/Billing/Crud/'">
- 						<input onclick="print_invoice()"  style="margin-left: 10px" type="" name="printer_btn" value="Print Invoice" class="btn btn-success submit_btn invoice-save-btm">						
-
+ 
 					</div>
  				</div>
 						</div>
@@ -174,6 +172,7 @@
 								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total" step="any">
 							</div>
 						</div>
+ 						 
 						<div class="form-group" style="display: none">
 							<label>Amount Paid: &nbsp;</label>
 							<div class="input-group">
