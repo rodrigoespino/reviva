@@ -21,7 +21,7 @@ class Billing extends Admin_Controller {
         $crud->set_relation('id_paid', 'status_paid', 'description_paid');
 
  		$this->mViewData['crud_note'] = modules::run('adminlte/widget/btn', 'New Order', 'Billing/create');
-		$crud->add_action('', 'Report', 'fa fa-file-pdf-o','fa fa-file-pdf-o',array($this,'report_pdf'));
+		$crud->add_action('', 'Report', ' ' ,'fa fa-file-pdf-o',array($this,'report_pdf'));
 
         $crud->unset_add();
         $crud->unset_delete();
@@ -41,21 +41,113 @@ class Billing extends Admin_Controller {
    // return site_url('admin/clientes/contactos/add/').$id;
 	}
     function vista($id){
+        $viewdata['id_billing'] = $id;
+        $viewdata['company_name'] = '';
+        $viewdata['company_email'] = '';
+        $viewdata['company_Address'] = '';
+        $viewdata['company_phone'] = '';
+        $viewdata['company_url'] = '';
+        $viewdata['company_path'] = '';
+        $viewdata['fecha'] =  '';
+        $viewdata['name'] =  '';
+        $viewdata['email'] =  '';
+        $viewdata['Address'] = '';
+        $viewdata['Phone'] =  '';
+
+        $viewdata['items_description'] = array();
+         
+        $viewdata['items_price'] = array();
+ 
+
+        $viewdata['total_billing'] = '';
+
+
+
         $ci =& get_instance();
-        $this->load->view('adminlte/billing/billing_view');
-    
-        echo "jasdasda";
+          $path = base_url();
 
-
+          $path .= "\assets\uploads\blog_posts\\";
         
-     /* $data =1;
-    
-        $this->load->view('adminlte/billing/billing_view', $data);
-    
-        //$this->load->database();
-      //  $query = $this->db->query("SELECT");
-    return $data;
+        ///* Load Client
+        $this->load->database();
+        $query = $this->db->query("Select *, DATE_FORMAT(date_billing,'%d/%m/%Y') 
+        AS niceDate from header_billing
+        inner join client
+        on client.id_client = header_billing.id_client 
+        left join status_paid 
+        on status_paid.id_paid = header_billing.id_paid
+
+        where id_billing=".$id);
+
+        $query_items = $this->db->query("SELECT  *FROM header_billing 
+        inner JOIN  billing_items  
+        on header_billing.id_billing = billing_items.id_billing
+        inner join product
+        on billing_items.id_product = product.id_product
+        inner join group_taxes
+        on group_taxes.id_grouptax = product.id_grouptax
+        where billing_items.id_billing=".$id);
+
+
+
+
+        //Load Company
+        $query_company = $this->db->query("Select *from Company");
+        $row_company = $query_company->row(); 
+        $viewdata['company_name'] = $row_company->Name;
+        $viewdata['company_email'] = $row_company->email;
+        $viewdata['company_Address'] = $row_company->Address;
+        $viewdata['company_phone'] = $row_company->phone;
+        $viewdata['company_url'] = $row_company->url;
+        $viewdata['company_path'] = $path;
+
+
+
+
+
+        foreach ($query->result() as $row)
+        {
+                         $viewdata['fecha'] = $row->niceDate;
+                        $viewdata['name'] = $row->Name;
+                        $viewdata['email'] = $row->email;
+                        $viewdata['Address'] = $row->Address;
+                        $viewdata['Phone'] = $row->Phone;
+
+
+                        $viewdata['paid'] = $row->description_paid;
+                        $viewdata['notes'] = $row->notes;
+
+
+                        $viewdata['total_billing'] = $row->total_billing;
+                        $viewdata['total_taxes'] = $row->total_taxes;
+
+        }   
+
+         $viewdata['total_items'] =  $query_items->num_rows(); 
+$i = 0;
+        foreach ($query_items->result_array() as $rowitems)
+        {
+ 
+
+             $i = $i+1;
+             $viewdata['descripcion_'.$i] = $rowitems['description'];  
+             $viewdata['items_price_'.$i] = $rowitems['price'];
+             $viewdata['qty_'.$i] = $rowitems['qty'];
+             $viewdata['tax_'.$i] = $rowitems['tax_price'];
+
+
+          }   
+ 
+
+        $this->load->view('adminlte/billing/billing_view',$viewdata);
+    /*
+        Select *, DATE_FORMAT(date_billing,'%d/%m/%Y') AS niceDate from header_billing
+        inner join client
+        on client.id_client = header_billing.id_client 
     */
+
+
+
     }
 
     	// Grocery CRUD - Billing  TYPE 
@@ -98,12 +190,18 @@ class Billing extends Admin_Controller {
         $client	= $this->input->post('companyName',TRUE);
         $total_billing	= $this->input->post('totalAftertax',TRUE);
         $total_subtotal	= $this->input->post('subTotal',TRUE);
+        $id_paid	= $this->input->post('paid',TRUE);
+        $notes	= $this->input->post('notes',TRUE);
 
         $this->db->insert("header_billing", [
 			"id_client" => $client,
             "total_billing" => $total_billing,
 
             "total_taxes" => $total_subtotal,
+
+            "id_paid" => $id_paid,
+
+            "notes" => $notes,
 		]);
         
         $id_invoice = $this->db->insert_id();
