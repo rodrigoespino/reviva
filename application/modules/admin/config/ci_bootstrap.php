@@ -68,6 +68,7 @@ $config['ci_bootstrap'] = array(
 			'name'		=> 'Company',
 			'url'		=> 'Company/Crud',
 			'icon'		=> 'fa fa-university',
+		
 		),
 		'Client' => array(
 			'name'		=> 'Client',
@@ -109,6 +110,8 @@ $config['ci_bootstrap'] = array(
 				'Admin Users'			=> 'panel/admin_user',
 				'Create Admin User'		=> 'panel/admin_user_create',
 				'Admin User Groups'		=> 'panel/admin_user_group',
+				'Settings'		=> 'Seteo/crud',
+
 			)
 		),
  

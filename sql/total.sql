@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-02-2020 a las 18:11:09
+-- Tiempo de generación: 05-03-2020 a las 15:39:22
 -- Versión del servidor: 10.3.22-MariaDB-0+deb10u1
 -- Versión de PHP: 7.3.14-5+0~20200202.52+debian10~1.gbpa71879
 
@@ -86,7 +86,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`) VALUES
-(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1582533559, 1, 'Webmaster', ''),
+(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1583417287, 1, 'Webmaster', ''),
 (2, '127.0.0.1', 'admin', '$2y$08$7Bkco6JXtC3Hu6g9ngLZDuHsFLvT7cyAxiz1FzxlX5vwccvRT7nKW', NULL, NULL, NULL, NULL, NULL, NULL, 1451900228, 1465833536, 1, 'Admin', ''),
 (3, '127.0.0.1', 'manager', '$2y$08$snzIJdFXvg/rSHe0SndIAuvZyjktkjUxBXkrrGdkPy1K6r5r/dMLa', NULL, NULL, NULL, NULL, NULL, NULL, 1451900430, 1465489585, 1, 'Manager', ''),
 (4, '127.0.0.1', 'staff', '$2y$08$NigAXjN23CRKllqe3KmjYuWXD5iSRPY812SijlhGeKfkrMKde9da6', NULL, NULL, NULL, NULL, NULL, NULL, 1451900439, 1465489590, 1, 'Staff', '');
@@ -253,7 +253,26 @@ INSERT INTO `billing_items` (`id_billing`, `id_product`, `qty`, `price_unity`, `
 (26, 12, 1, 27.99, 32.19, 15),
 (26, 14, 1, 18.99, 20.89, 10),
 (26, 11, 1, 9.75, 9.75, 0),
-(26, 15, 3, 13.00, 40.95, 5);
+(26, 15, 3, 13.00, 40.95, 5),
+(27, 1, 1, 80.00, 80.00, 0),
+(27, 3, 12, 10.00, 126.00, 5),
+(27, 8, 44, 10.00, 462.00, 5),
+(28, 1, 12, 80.00, 960.00, 0),
+(28, 8, 40, 10.00, 420.00, 5),
+(28, 10, 23, 20.89, 528.52, 10),
+(28, 15, 33, 11.25, 389.81, 5),
+(28, 11, 55, 9.75, 536.25, 0),
+(29, 3, 2, 10.00, 21.00, 5),
+(30, 3, 12, 10.00, 126.00, 5),
+(31, 6, 12, 0.85, 10.20, 12),
+(31, 11, 0, 9.75, 0.00, 0),
+(32, 4, 12, 12.49, 149.88, 0),
+(33, 3, 1, 10.00, 10.50, 5),
+(33, 4, 12, 12.49, 149.88, 0),
+(33, 15, 66, 11.25, 779.63, 5),
+(33, 4, 22, 12.49, 274.78, 0),
+(33, 3, 33, 10.00, 346.50, 5),
+(33, 11, 55, 9.75, 536.25, 0);
 
 -- --------------------------------------------------------
 
@@ -265,16 +284,18 @@ CREATE TABLE `client` (
   `id_client` int(11) NOT NULL,
   `Name` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `Address` varchar(200) NOT NULL
+  `Address` varchar(200) NOT NULL,
+  `Phone` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `client`
 --
 
-INSERT INTO `client` (`id_client`, `Name`, `email`, `Address`) VALUES
-(1, 'Rodrigo Espino', 'espino.rodrigo@gmail.com', 'Vicollo Porta Galli 3'),
-(3, 'a', 'a', 'a');
+INSERT INTO `client` (`id_client`, `Name`, `email`, `Address`, `Phone`) VALUES
+(1, 'Rodrigo Espino', 'espino.rodrigo@gmail.com', 'Vicollo Porta Galli 3', ''),
+(3, 'a', 'a', 'a', ''),
+(4, 'Nuevo Cliente', 'espino.rodrigo@gmail.com', 'ASDASDA', '1212121212');
 
 -- --------------------------------------------------------
 
@@ -287,15 +308,17 @@ CREATE TABLE `Company` (
   `email` varchar(200) NOT NULL,
   `Address` varchar(200) NOT NULL,
   `Taxes_imported` decimal(5,2) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `url` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `Company`
 --
 
-INSERT INTO `Company` (`Name`, `email`, `Address`, `Taxes_imported`, `id`) VALUES
-('REVIVA', 'info@reviva.com', 'Aasasas', '5.00', 1);
+INSERT INTO `Company` (`Name`, `email`, `Address`, `Taxes_imported`, `id`, `phone`, `url`) VALUES
+('REVIVA', 'info@reviva.com', 'Aasasas', '5.00', 1, '1111', 'd67d6-logo.png');
 
 -- --------------------------------------------------------
 
@@ -373,40 +396,49 @@ CREATE TABLE `header_billing` (
   `id_client` int(10) NOT NULL,
   `total_billing` decimal(5,2) NOT NULL,
   `total_taxes` decimal(5,2) NOT NULL,
-  `date_billing` date NOT NULL DEFAULT current_timestamp()
+  `date_billing` date NOT NULL DEFAULT current_timestamp(),
+  `id_paid` int(11) NOT NULL,
+  `notes` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `header_billing`
 --
 
-INSERT INTO `header_billing` (`id_billing`, `id_client`, `total_billing`, `total_taxes`, `date_billing`) VALUES
-(1, 1, '100.00', '100.00', '2020-02-21'),
-(2, 0, '0.00', '0.00', '0000-00-00'),
-(3, 1, '222.00', '0.00', '2020-02-24'),
-(4, 1, '222.00', '0.00', '2020-02-24'),
-(5, 1, '222.00', '0.00', '2020-02-24'),
-(6, 1, '999.99', '0.00', '2020-02-24'),
-(7, 1, '13.11', '0.00', '2020-02-24'),
-(8, 1, '13.11', '0.00', '2020-02-24'),
-(9, 1, '72.22', '0.00', '2020-02-24'),
-(10, 3, '101.11', '92.49', '2020-02-24'),
-(11, 3, '101.11', '92.49', '2020-02-24'),
-(12, 3, '101.11', '92.49', '2020-02-24'),
-(13, 3, '101.11', '92.49', '2020-02-24'),
-(14, 3, '101.11', '92.49', '2020-02-24'),
-(15, 3, '101.11', '92.49', '2020-02-24'),
-(16, 3, '101.11', '92.49', '2020-02-24'),
-(17, 3, '101.11', '92.49', '2020-02-24'),
-(18, 3, '101.11', '92.49', '2020-02-24'),
-(19, 3, '101.11', '92.49', '2020-02-24'),
-(20, 3, '101.11', '92.49', '2020-02-24'),
-(21, 3, '101.11', '92.49', '2020-02-24'),
-(22, 1, '13.11', '12.49', '2020-02-24'),
-(23, 1, '24.61', '22.49', '2020-02-24'),
-(24, 1, '42.32', '40.82', '2020-02-24'),
-(25, 1, '65.13', '57.50', '2020-02-24'),
-(26, 1, '103.78', '95.73', '2020-02-24');
+INSERT INTO `header_billing` (`id_billing`, `id_client`, `total_billing`, `total_taxes`, `date_billing`, `id_paid`, `notes`) VALUES
+(1, 1, '100.00', '100.00', '2020-02-21', 1, ''),
+(2, 0, '0.00', '0.00', '0000-00-00', 0, ''),
+(3, 1, '222.00', '0.00', '2020-02-24', 0, ''),
+(4, 1, '222.00', '0.00', '2020-02-24', 0, ''),
+(5, 1, '222.00', '0.00', '2020-02-24', 0, ''),
+(6, 1, '999.99', '0.00', '2020-02-24', 0, ''),
+(7, 1, '13.11', '0.00', '2020-02-24', 0, ''),
+(8, 1, '13.11', '0.00', '2020-02-24', 0, ''),
+(9, 1, '72.22', '0.00', '2020-02-24', 0, ''),
+(10, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(11, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(12, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(13, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(14, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(15, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(16, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(17, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(18, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(19, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(20, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(21, 3, '101.11', '92.49', '2020-02-24', 0, ''),
+(22, 1, '13.11', '12.49', '2020-02-24', 0, ''),
+(23, 1, '24.61', '22.49', '2020-02-24', 0, ''),
+(24, 1, '42.32', '40.82', '2020-02-24', 0, ''),
+(25, 1, '65.13', '57.50', '2020-02-24', 0, ''),
+(26, 1, '103.78', '95.73', '2020-02-24', 0, ''),
+(27, 4, '668.00', '640.00', '2020-03-04', 1, ''),
+(28, 4, '999.99', '999.99', '2020-03-05', 1, 'Demo Billing'),
+(29, 4, '21.00', '20.00', '2020-03-05', 1, '444'),
+(30, 3, '126.00', '120.00', '2020-03-05', 1, '12'),
+(31, 4, '10.20', '10.20', '2020-03-05', 1, '12'),
+(32, 4, '149.88', '149.88', '2020-03-05', 1, '12'),
+(33, 1, '999.99', '999.99', '2020-03-05', 1, 'qwdqwewqe');
 
 -- --------------------------------------------------------
 
@@ -453,6 +485,24 @@ INSERT INTO `product` (`id_product`, `description`, `price`, `id_grouptax`, `is_
 (13, 'box of imported chocolates 2', 11.25, 4, 1),
 (14, 'bottle of perfume', 18.99, 6, 0),
 (15, ' box of imported chocolates I3', 11.25, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `status_paid`
+--
+
+CREATE TABLE `status_paid` (
+  `id_paid` int(11) NOT NULL,
+  `description_paid` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `status_paid`
+--
+
+INSERT INTO `status_paid` (`id_paid`, `description_paid`) VALUES
+(1, 'PAID');
 
 -- --------------------------------------------------------
 
@@ -634,6 +684,12 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`id_product`);
 
 --
+-- Indices de la tabla `status_paid`
+--
+ALTER TABLE `status_paid`
+  ADD PRIMARY KEY (`id_paid`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -701,7 +757,7 @@ ALTER TABLE `api_logs`
 -- AUTO_INCREMENT de la tabla `client`
 --
 ALTER TABLE `client`
-  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `Company`
@@ -731,7 +787,7 @@ ALTER TABLE `group_taxes`
 -- AUTO_INCREMENT de la tabla `header_billing`
 --
 ALTER TABLE `header_billing`
-  MODIFY `id_billing` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_billing` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `login_attempts`
@@ -744,6 +800,12 @@ ALTER TABLE `login_attempts`
 --
 ALTER TABLE `product`
   MODIFY `id_product` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `status_paid`
+--
+ALTER TABLE `status_paid`
+  MODIFY `id_paid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

@@ -100,9 +100,14 @@ class Billing extends Admin_Controller {
         $viewdata['company_phone'] = $row_company->phone;
         $viewdata['company_url'] = $row_company->url;
         $viewdata['company_path'] = $path;
-
-
-
+     //Load Company
+     $query_seteo = $this->db->query("Select *from system_settings");
+     $row_seteo = $query_seteo->row(); 
+     $smtp_host = $row_seteo->smtp_host;
+     $smtp_user	 = $row_seteo->smtp_user;
+     $smtp_password		 = $row_seteo->smtp_password	;
+     $smtp_port		  	 = $row_seteo->smtp_port		;
+     $sendeamail		  	 = $row_seteo->Send_Email			;
 
 
         foreach ($query->result() as $row)
@@ -145,8 +150,63 @@ class Billing extends Admin_Controller {
 
           }   
  
-        $this->load->view('adminlte/billing/billing_view',$viewdata);
+          /*
+
+               $row_seteo = $seteo->row(); 
+     $smtp_host = $row_seteo->smtp_host;
+     $smtp_user	 = $row_seteo->smtp_user;
+     $smtp_password		 = $row_seteo->smtp_password	;
+     $smtp_port		  	 = $row_seteo->smtp_port		;
+          */
+          $config = Array(    
+
+            'protocol' => 'sendmail',
+      
+            'smtp_host' => $smtp_host,
+      
+            'smtp_port' => $smtp_port	,
+      
+            'smtp_user' => $smtp_user,
+      
+            'smtp_pass' => $smtp_password,
+      
+            'smtp_timeout' => '4',
+      
+            'mailtype' => 'html',
+      
+            'charset' => 'iso-8859-1'
+      
+          );
+      
+          $subject = "Invoice Nro. : " .$id;
+          $this->load->library('email', $config);
+      
+        $this->email->set_newline("\r\n");
+      
+        
+      
+          $this->email->from($viewdata['email'], 'Invoice Billing');
+      
+       
+      
+        $this->email->to($viewdata['email']); // replace it with receiver mail id
+      
+        $this->email->subject($subject); // replace it with relevant subject
+      
+        
+      if($sendeamail = TRUE){
+          $body =  $this->load->view('adminlte/billing/billing_view',$viewdata);
  
+          //$this->load->view('emails/anillabs.php',$data,TRUE);
+      
+        $this->email->message($body); 
+      
+          $this->email->send();
+      }else {
+
+            $this->load->view('adminlte/billing/billing_view',$viewdata);
+ 
+          }
 
 
     }

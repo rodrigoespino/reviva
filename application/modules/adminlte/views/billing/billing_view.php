@@ -212,7 +212,7 @@
                     echo "</td>";
                     echo "<td>";
                     
-                    echo eval('echo '. gettype( $price ). ';');
+                    echo eval('echo '.  $price  . ';');
 
  
               //      echo $items_price_.$i;
@@ -254,5 +254,12 @@
             
         </table>
     </div>
+
+    <div align="center">
+                <input type="button"  style="margin-left: 10px" class="btn btn-danger" value="Go Back"  onclick="window.location.href='/total/admin/Billing/Crud/'">
+
+            </div>
+            
+ 
 </body>
 </html>
