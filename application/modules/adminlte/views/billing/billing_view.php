@@ -42,7 +42,10 @@
     }
     
     .invoice-box table tr.information table td {
+        width: 1800px;
+	    height: 100%;
         padding-bottom: 40px;
+ 
     }
     
     .invoice-box table tr.heading td {
@@ -68,7 +71,7 @@
         font-weight: bold;
     }
     
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 900px) {
         .invoice-box table tr.top table td {
             width: 100%;
             display: block;
@@ -96,6 +99,8 @@
         text-align: left;
     }
     </style>
+          <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -127,8 +132,8 @@
                                 <?php echo $company_name; ?><br>
                                 <?php echo $company_Address; ?><br>
                                 <?php echo $company_phone; ?><br>
-                                <?php echo $company_email; ?><br>                                <?php echo $company_email; ?><br>
- 
+                                <?php echo $company_email; ?><br>                             
+  
                             </td>
                             
                             <td>
@@ -156,15 +161,11 @@
             </tr>
             
                   
-            <tr class="details">
-                <td>
-         
-                </td>
-            </tr>
+    
 
             <tr class="heading">
-                <td>
- Item
+                    <td>
+                     Item
                 </td>
                 <td>
             Qty
@@ -189,31 +190,31 @@
                     $price = strval('$items_price_'.$i)   ;     
                     $qty = strval('$qty_'.$i)   ;     
                     $tax = strval('$tax_'.$i)   ;     
-
-                    echo "<td name=".$descri.">";
+                    $total_item = 0;
+                    echo "<td name= descripcion_".$i.">";
                      echo eval('echo '. $descri . ';');
 
                      echo "</td>";
-                    echo "<td>";
-                    echo eval('echo '. $qty . ';');
+                     echo "<td name= qty_$i id= qty_".$i . ">";
 
-              //      echo $items_price_.$i;
+                     echo eval('echo '. $qty . ';');
+
+   
                     echo "</td>";
                     echo "<td>";
                     echo eval('echo '. $tax . ';');
-
-              //      echo $items_price_.$i;
                     echo "</td>";
-                    echo "<td>";
+
+                    echo "<td  name= precio_$i id= precio_".$i . ">";
                     echo eval('echo '. $price . ';');
 
- 
-              //      echo $items_price_.$i;
+    
                     echo "</td>";
-                    echo "<td>";
+ 
+ 
+                      echo "<td name= total_item_$i id= total_item_".$i . ">";
                     
-                    echo eval('echo '.  $price  . ';');
-
+                    echo $total_item;
  
               //      echo $items_price_.$i;
                     echo "</td>";
@@ -229,8 +230,7 @@
       
             
             <tr class="total">
-                <td></td>
-                <td>
+                 <td>
                    SubTotal: 
                    <?php echo $total_taxes;?><br>
                 </td>
@@ -263,3 +263,28 @@
  
 </body>
 </html>
+<script>
+$(document).ready(function() {
+
+    var id = 0; 
+
+	$("[id^='precio_']").each(function() {
+    id = id+1;
+        /*	var id = $(this).attr('id');
+		id = id.replace("price_",'');
+		var price = $('#price_'+id).val();
+		var quantity  = $('#quantity_'+id).val();
+	 
+         */	
+        
+         var price = (document.getElementById ( "precio_"+id ).innerText);
+         var qty =  (document.getElementById ( "qty_"+id ).innerText);
+         var total_price = price * qty;
+         document.getElementById("total_item_"+id).innerHTML =  Math.round(total_price * 100) / 100;
+ 
+
+    });
+  });
+      
+      
+</script>

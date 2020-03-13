@@ -194,7 +194,7 @@ class Billing extends Admin_Controller {
         $this->email->subject($subject); // replace it with relevant subject
       
         
-      if($sendeamail = TRUE){
+      if($sendeamail = 1){
           $body =  $this->load->view('adminlte/billing/billing_view',$viewdata);
  
           //$this->load->view('emails/anillabs.php',$data,TRUE);

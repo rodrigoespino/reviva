@@ -96,7 +96,7 @@ function calculateTotal(){
 			totalAftertax = totalAftertax-amountPaid;			
 			$('#amountDue').val(totalAftertax);
 		} else {		
-			$('#amountDue').val(subTotal);
+				$('#amountDue').val(subTotal);
 		}
 	}
 }
